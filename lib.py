@@ -37,7 +37,7 @@ def specific_movie_rpt(cursor, movie_title) -> list:
         print(f"執行 SELECT 操作時發生錯誤：{error}")
         return []
 
-    if data:
+    if len(data) != 0:
         list_rpt(data)
     else:
         print("查無資料")
@@ -95,15 +95,14 @@ def add_movie(conn, cursor):
 '''4. 修改電影'''
 def modify_movie(conn, cursor):
     movie_title = input("請輸入要修改的電影名稱: ")
-    data = specific_movie_rpt(cursor, movie_title)
+    record = specific_movie_rpt(cursor, movie_title)
 
-    record = data[0]
     print()
-    new_title = input("請輸入新的電影名稱 (若不修改請直接按 Enter): ") or record["title"]
-    new_director = input("請輸入新的導演 (若不修改請直接按 Enter): ") or record["director"]
-    new_genre = input("請輸入新的類型 (若不修改請直接按 Enter): ") or record["genre"]
-    new_year = input("請輸入新的上映年份 (若不修改請直接按 Enter): ") or record["year"]
-    new_rating = input("請輸入新的評分 (1.0 - 10.0) (若不修改請直接按 Enter): ") or record["rating"]
+    new_title = input("請輸入新的電影名稱 (若不修改請直接按 Enter): ") or record['title']
+    new_director = input("請輸入新的導演 (若不修改請直接按 Enter): ") or record['director']
+    new_genre = input("請輸入新的類型 (若不修改請直接按 Enter): ") or record['genre']
+    new_year = input("請輸入新的上映年份 (若不修改請直接按 Enter): ") or record['year']
+    new_rating = input("請輸入新的評分 (1.0 - 10.0) (若不修改請直接按 Enter): ") or record['rating']
 
     cursor.execute('''
         UPDATE movies
